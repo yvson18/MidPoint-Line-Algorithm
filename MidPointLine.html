@@ -221,6 +221,7 @@
                 }
             }
 
+
             //1 octante
             MidPointLineAlgorithm(0, 0, 20, 10, [255,255,0,255]);
             // MidPointLineAlgorithm(0, 0, 20, 0, [255,255,0,255]);
@@ -228,6 +229,16 @@
             //2 octante
             MidPointLineAlgorithm(0, 0, 10, 20, [255,0,0,255]);
             //MidPointLineAlgorithm(0, 0, 0, 20, [255,0,0,255]);
+            
+            MidPointLineAlgorithm(10, 20, -10 , 20, [120,120,255,255]) //reta de cima
+            MidPointLineAlgorithm(10, -20, -10 , -20, [120,120,255,255]) //reta de baixo
+            MidPointLineAlgorithm(20, -10, 20 , 10, [120,120,255,255]) //reta da direita
+            MidPointLineAlgorithm(-20, -10, -20 , 10, [120,120,255,255]) //reta da esquerda
+
+
+
+
+
 
             //3 octante
             MidPointLineAlgorithm(0, 0, -10 , 20, [120,120,255,255])
@@ -252,6 +263,8 @@
 
             //8 octante
             MidPointLineAlgorithm(0, 0, 20 , -10, [100,100,100,255])
+
+
 
        
 
