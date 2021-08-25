@@ -47,6 +47,7 @@
                 yf = yf+64
                 console.log(`xi: ${xi}, xf: ${xf}, yi: ${yi}, yf: ${yf}`)
                 let printaEmRelacaoAY = false;
+                let printaNegativo = false;
 
                 // Variáveis iniciais 1° octante
                 let dx = xf - xi; 
@@ -82,6 +83,8 @@
                 }
                 if(m > 1){ //2 e 6 octante
                     printaEmRelacaoAY = true;
+                    
+                    
                     // troca os valores de dy e dx
                     let aux;
                     aux = dx;
@@ -120,6 +123,47 @@
                     }
                 }
 
+                if (m < -1){ //3 e 7 octantes
+                    console.log("3 e 7 octantes")
+                    printaEmRelacaoAY = true;
+                    printaNegativo = true;
+
+                    // troca os valores de dy e dx
+                    let aux;
+                    aux = dx;
+                    dx = dy;
+                    dy = aux;
+                   
+                    // troca de valores de xf e yf
+                    let aux2;
+                    aux2 = xf;
+                    xf = yf;
+                    yf = aux2;
+
+                    // inverte dy
+                    dy = dy * (-1);
+
+                    console.log(`xi: ${xi}, xf: ${xf}, yi: ${yi}, yf: ${yf}`)
+                
+                    console.log(`dx: ${dx}, dy: ${dy}`)
+                    
+                    if(yf > yi){
+                        console.log("inverteu")
+                        let aux;
+                        aux = xi;
+                        xi = xf;
+                        xf = aux;
+                        //inverte y
+                        aux = yi;
+                        yi = yf;
+                        yf = aux;
+
+                        dy = dy * (-1);
+                        dx = dx * (-1); 
+
+                    }
+                }
+
                 // Coeficientes
                 
                 let d = 2 * dy - dx; 
@@ -129,39 +173,58 @@
                 printaEmRelacaoAY ? color_buffer.putPixel(yi, xi, color_0) : color_buffer.putPixel(xi, yi, color_0);
             
                 while (xi<xf) { 
+                    console.log(`d=${d}`)
                     if (d<=0) { 
                         d += incrE; 
-                        xi++; 
+                        xi++;
+                        console.log('leste');
                     } else { 
                         d += incrNE; 
-                        xi++; 
-                        yi++; 
+                        xi++;
+                        printaNegativo ? yi-- : yi++;
+                        console.log('nordeste');
+
                     } 
                     printaEmRelacaoAY ? color_buffer.putPixel(yi, xi, color_0) : color_buffer.putPixel(xi, yi, color_0);
+                    console.log(`xi: ${xi}, yi: ${yi}`)
+
                 }
             }
 
-            //1 octante
+            // //1 octante
             // MidPointLineAlgorithm(0, 0, 20, 10, [255,255,0,255]);
             // MidPointLineAlgorithm(0, 0, 20, 0, [255,255,0,255]);
             // MidPointLineAlgorithm(0, 0, 20, 20, [255,255,0,255]);
             //2 octante
             MidPointLineAlgorithm(0, 0, 10, 20, [255,0,0,255]);
-            MidPointLineAlgorithm(0, 0, 0, 20, [255,0,0,255]);
+            //MidPointLineAlgorithm(0, 0, 0, 20, [255,0,0,255]);
 
-            // // //MidPointLineAlgorithm(0, 0, 90, 80, [255,255,0,255]);
+            //3 octante
+            MidPointLineAlgorithm(0, 0, -10 , 20, [120,120,255,255])
+            //MidPointLineAlgorithm(0, 0, 0 , 20, [120,120,255,255])
 
-            //5 octante
+
+
+            // //5 octante
             // MidPointLineAlgorithm(0, 0, -20, -10, [255,0,255,255]);
             // MidPointLineAlgorithm(0, 0, -20, 0, [255,0,255,255]);
             // MidPointLineAlgorithm(0, 0, -20, -20, [255,0,255,255]);
 
-            //6 octante
-            MidPointLineAlgorithm(0, 0, -10, -20, [255,0,0,255]);
-            MidPointLineAlgorithm(0, 0, -1, -20, [255,255,158,255]);
+            // //6 octante
+            MidPointLineAlgorithm(0, 0, -10, -20, [255,255,255,255]);
+            //MidPointLineAlgorithm(0, 0, -20, -20, [255,255,158,255]);
+
+            // 7 octante
+           //MidPointLineAlgorithm(0, 0, 19 , -20, [255,0,255,255])
+            MidPointLineAlgorithm(0, 0, 10 , -20, [255,0,255,255])
+       
+
+
 
            // MidPointLineAlgorithm(0, 0, 15 , 13, [255,0,255,255]);
            // MidPointLineAlgorithm(0, 0,  5, 7, [255,0,0,255]);
+           //MidPointLineAlgorithm(0, 0, -10 , 13, [255,0,255,255])
+
 
 
 
