@@ -53,14 +53,16 @@
                 let dx = xf - xi; 
                 let dy = yf - yi; 
                 console.log(`dx: ${dx}, dy: ${dy}`)
-                console.log(`m = ${dy/dx}`)
+                console.log(`m = ${(yf-yi)/(xf-xi)}`)
                 //avaliar se pode manter essa divisão
-                let m = (dy/dx);
+                let m = ((yf-yi)/(xf-xi));
 
                 // Avaliação de condições
 
                 if (0 <= m && m <= 1){ //1 e 5 octante
-                    //para o primeiro não precisa fazer nada
+                    console.log("1 e 5 octantes")
+
+                   
                     // 5° octante
                     if(xf < xi){
                         //inverte x
@@ -82,6 +84,8 @@
                     }
                 }
                 if(m > 1){ //2 e 6 octante
+                    console.log("2 e 6 octantes")
+
                     printaEmRelacaoAY = true;
                     
                     
@@ -164,6 +168,32 @@
                     }
                 }
 
+                if( m < 0 && m >= -1){ //4 e 8 octantes
+                    console.log("8 e 4 octantes")
+                    printaNegativo = true;
+
+                    dy = dy * (-1);
+
+                    if( xf < xi){
+                        console.log("inverteu")
+                        //inverte x
+                        let aux;
+                        aux = xi;
+                        xi = xf;
+                        xf = aux;
+                        //inverte y
+                        aux = yi;
+                        yi = yf;
+                        yf = aux;
+
+                        //inverte dx e dy
+                        dx = dx * (-1); 
+                        dy = dy * (-1);
+
+                    }
+                    
+                }
+
                 // Coeficientes
                 
                 let d = 2 * dy - dx; 
@@ -191,8 +221,8 @@
                 }
             }
 
-            // //1 octante
-            // MidPointLineAlgorithm(0, 0, 20, 10, [255,255,0,255]);
+            //1 octante
+            MidPointLineAlgorithm(0, 0, 20, 10, [255,255,0,255]);
             // MidPointLineAlgorithm(0, 0, 20, 0, [255,255,0,255]);
             // MidPointLineAlgorithm(0, 0, 20, 20, [255,255,0,255]);
             //2 octante
@@ -203,10 +233,12 @@
             MidPointLineAlgorithm(0, 0, -10 , 20, [120,120,255,255])
             //MidPointLineAlgorithm(0, 0, 0 , 20, [120,120,255,255])
 
+            //4 octante
+            MidPointLineAlgorithm(0, 0, -20, 10, [0,200,200,255]);
 
 
             // //5 octante
-            // MidPointLineAlgorithm(0, 0, -20, -10, [255,0,255,255]);
+            MidPointLineAlgorithm(0, 0, -20, -10, [255,0,255,255]);
             // MidPointLineAlgorithm(0, 0, -20, 0, [255,0,255,255]);
             // MidPointLineAlgorithm(0, 0, -20, -20, [255,0,255,255]);
 
@@ -216,7 +248,11 @@
 
             // 7 octante
            //MidPointLineAlgorithm(0, 0, 19 , -20, [255,0,255,255])
-            MidPointLineAlgorithm(0, 0, 10 , -20, [255,0,255,255])
+            MidPointLineAlgorithm(0, 0, 10 , -20, [0,125,0,255])
+
+            //8 octante
+            MidPointLineAlgorithm(0, 0, 20 , -10, [100,100,100,255])
+
        
 
 
