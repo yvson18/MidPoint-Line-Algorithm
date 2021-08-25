@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Introdução à Computação Gráfica</title>
+    </head>
+    <style>
+        body {
+            text-align: center;
+            font-size: 48px;  
+            background-color: black;
+        }
+    </style>
+    <body>
+        <header style="color: white;">Introdução à Computação Gráfica </header>
+        
+        <canvas id="canvas" width="128" height="128" style="border: 1px solid white; width: 512px; height: 512px; image-rendering: pixelated; top:20px; left: 16px; margin-top: 50px;"></canvas>
+        <script>
+            class Canvas {
+                constructor(canvas_id) {
+                    this.canvas = document.getElementById(canvas_id);
+                    this.context = this.canvas.getContext("2d");
+                    this.clear_color = 'rgba(0,0,0,255)';
+                }
+
+                clear() {
+                    this.context.fillStyle = this.clear_color;
+                    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                }
+
+                putPixel(x, y, color) {
+                    this.context.fillStyle = 'rgb(' + color[0] + ',' + color[1] + ',' + color[2] + ')';
+                    this.context.fillRect(x, (this.canvas.height - 1) - y, 1, 1);
+                }
+            }      
+
+            let color_buffer = new Canvas("canvas");
+            color_buffer.clear();
+
+            function MidPointLineAlgorithm(xi, yi, xf, yf, color_0, color_1) {
+            }
+
+
+        </script>
+    </body>
+</html>
