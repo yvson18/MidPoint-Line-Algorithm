@@ -27,12 +27,12 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
 
         while(x < xf){
             if(d <= 0){
-            d += incL; // caminhar para a direita (leste)
-            x++;
+                d += incL; // caminhar para a direita (leste)
+                x++;
             }else{
-            d += incNe; // caminhar em diagonal (Nordeste)
-            x++;
-            y++;
+                d += incNe; // caminhar em diagonal (Nordeste)
+                x++;
+                y++;
             }
             color_buffer.putPixel(x, y, color);
         }
@@ -51,7 +51,7 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
 
         dx = xf - xi;
         dy = yf - yi;
-        console.log(dy);
+        //console.log(dy);
         var d = 2 * dy - dx; // Var de decisão para o pixel 1
 
         var incL = 2 * dy; // 2 * alfa
@@ -62,7 +62,7 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
 
         console.log("Entrei no 2");
         color_buffer.putPixel(y, x, color);
-        console.log(x, xf);
+        //console.log(x, xf);
         while(x < xf){
             if(d <= 0){
             d += incL; // caminhar para a direita (leste)
@@ -183,7 +183,7 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
             color_buffer.putPixel(x, y, color);
         }
 
-    }else if((-m > 1) && (yi > yf)){ // sexto octante
+    }else if((m > 1) && (yi > yf) || (-m > 1) && (yi > yf)){ // sexto octante
         // troca o inicio pelo fim e o fim pelo inicio
         let auxX;
         auxX = xi;
@@ -292,9 +292,9 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
         var y = yi;
         console.log("Entrei no 8");
         color_buffer.putPixel(x,-y, color);
-        console.log(x, xf);
+        //console.log(x, xf);
         while(x < xf){
-            console.log("Entrei")
+            //console.log("Entrei")
             if(d <= 0){
                 d += incL; // caminhar para a direita (leste)
                 x++;
@@ -309,15 +309,30 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
     
 }
 
-// Eixos cartesianos e octantes 
+
+function DrawTriangle(x0,y0,x1,y1,x2,y2,color_0,color_1,color_2){
+   
+    MidPointLineAlgorithm(x0,y0,x1,y1,color_0);
+    MidPointLineAlgorithm(x1,y1,x2,y2,color_0);
+    MidPointLineAlgorithm(x2,y2,x0,y0,color_0);
+
+
+}
+
+
+//DrawTriangle(0,50,-50,0,50,0,[255,255,255,255]);
+//MidPointLineAlgorithm(20,20,10,30,[255,255,255,255]);
+
+
+MidPointLineAlgorithm(0,0,-20,-30,[255,255,255,255]);
+
+console.log("Eixos cartesianos e octantes: ");
+//Eixos cartesianos e octantes 
 MidPointLineAlgorithm(0,0,64,0,[255,255,255,255]);// eixo x +
 MidPointLineAlgorithm(0,0,-64,0,[255,255,255,255]);// eixo x -
 MidPointLineAlgorithm(0,0,0,64,[255,255,255,255]);// eixo y +
 MidPointLineAlgorithm(0,0,0,-64,[255,255,255,255]);// eixo y -
-console.log("Octantes")
 MidPointLineAlgorithm(0,0,64,64,[255,255,255,255]);// reta +(y = x)
 MidPointLineAlgorithm(0,0,-64,-64,[255,255,255,255]);// reta -(y = x)
 MidPointLineAlgorithm(0,0,64,-64,[255,255,255,255]);// reta -(y = x)
 MidPointLineAlgorithm(0,0,-64,64,[255,255,255,255]);// reta -(y = x)
-
-
