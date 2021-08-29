@@ -23,8 +23,11 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
         var y = yi;
 
         console.log("Entrei no 1");
-        color_buffer.putPixel(x, y, color);
+        color_buffer.putPixel(x, y, color_0);
 
+        var dist = xf - x - 1; // é utilizado na hora de normalizar t
+        var i = 0;
+        
         while(x < xf){
             if(d <= 0){
                 d += incL; // caminhar para a direita (leste)
@@ -34,7 +37,16 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
                 x++;
                 y++;
             }
-            color_buffer.putPixel(x, y, color);
+            // interpolation
+            i++;
+            var grad_color = [];
+            grad_color.push(color_0[0] +(color_1[0]- color_0[0])* i/dist);// R
+            grad_color.push(color_0[1] + (color_1[1]- color_0[1])* i/dist);// G
+            grad_color.push(color_0[2] + (color_1[2]- color_0[2])* i/dist);// B
+            grad_color.push(255);// ALPHA
+            color_buffer.putPixel(x, y, grad_color);
+            console.log(grad_color)
+        
         }
 
     }else if((m > 1) && (yi < yf)){ // segundo octante
@@ -323,12 +335,10 @@ function DrawTriangle(x0,y0,x1,y1,x2,y2,color_0,color_1,color_2){
 //DrawTriangle(0,50,-50,0,50,0,[255,255,255,255]);
 //MidPointLineAlgorithm(20,20,10,30,[255,255,255,255]);
 
-
-MidPointLineAlgorithm(0,0,-20,-30,[255,255,255,255]);
-
+MidPointLineAlgorithm(0,0,24,24,[255,255,255,255],[255,255,255,255],[255,255,255,255]);
 console.log("Eixos cartesianos e octantes: ");
 //Eixos cartesianos e octantes 
-MidPointLineAlgorithm(0,0,64,0,[255,255,255,255]);// eixo x +
+MidPointLineAlgorithm(0,0,64,0,[255,255,255,255],[255,0,0,255],[0,0,255,255]);// eixo x +
 MidPointLineAlgorithm(0,0,-64,0,[255,255,255,255]);// eixo x -
 MidPointLineAlgorithm(0,0,0,64,[255,255,255,255]);// eixo y +
 MidPointLineAlgorithm(0,0,0,-64,[255,255,255,255]);// eixo y -
