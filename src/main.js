@@ -1,7 +1,7 @@
 let color_buffer = new Canvas("canvas");
 color_buffer.clear();
 
-function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
+function MidPointLineAlgorithm(xi, yi, xf, yf, color_0, color_1) {
     // coversão para o centro
     [xi,yi,xf,yf] = [xi+64 ,yi+64  , xf+64 , yf+64 ];      
     
@@ -14,6 +14,7 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
     if((0 <= m && m <= 1) && (xi < xf)){ // primeiro octante
         dx = xf - xi;
         dy = yf - yi;
+
         var d = 2 * dy - dx; // Var de decisão para o pixel 1
 
         var incL = 2 * dy; // 2 * alfa
@@ -37,7 +38,7 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
                 x++;
                 y++;
             }
-            // interpolation
+            //interpolação
             i++;
             var grad_color = [];
             grad_color.push(color_0[0] +(color_1[0]- color_0[0])* i/dist);// R
@@ -50,6 +51,7 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
         }
 
     }else if((m > 1) && (yi < yf)){ // segundo octante
+        // Transformações
         // troca os valores de xi e yi
         let aux1;
         aux1 = xi;
@@ -63,7 +65,7 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
 
         dx = xf - xi;
         dy = yf - yi;
-        //console.log(dy);
+
         var d = 2 * dy - dx; // Var de decisão para o pixel 1
 
         var incL = 2 * dy; // 2 * alfa
@@ -73,21 +75,33 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
         var y = yi;
 
         console.log("Entrei no 2");
-        color_buffer.putPixel(y, x, color);
-        //console.log(x, xf);
+        color_buffer.putPixel(y, x, color_0); // desfaz transformação
+       
+        // é utilizado na hora de interporlar 
+        var dist = xf - x - 1; 
+        var i = 0;
+
         while(x < xf){
             if(d <= 0){
-            d += incL; // caminhar para a direita (leste)
-            x++;
+                d += incL; // caminhar para a direita (leste)
+                x++;
             }else{
-            d += incNe; // caminhar em diagonal (Nordeste)
-            x++;
-            y++;
+                d += incNe; // caminhar em diagonal (Nordeste)
+                x++;
+                y++;
             }
-            color_buffer.putPixel(y, x, color);
+            //interpolação
+            i++;
+            var grad_color = [];
+            grad_color.push(color_0[0] +(color_1[0]- color_0[0])* i/dist);// R
+            grad_color.push(color_0[1] + (color_1[1]- color_0[1])* i/dist);// G
+            grad_color.push(color_0[2] + (color_1[2]- color_0[2])* i/dist);// B
+            grad_color.push(255);// ALPHA
+            color_buffer.putPixel(y, x, grad_color); // desfaz transformação
         }
 
     }else if((m < -1) && (yf > yi)){ // terceiro octante
+        // Transformações
         // (-x,y)
         xi = -xi;
         xf = -xf;
@@ -115,21 +129,35 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
         var y = yi;
 
         console.log("Entrei no 3");
-        color_buffer.putPixel(-y, x, color);
+        color_buffer.putPixel(-y, x, color_0); // desfaz transformação
+
+        // é utilizado na hora de interporlar 
+        var dist = xf - x - 1;
+        var i = 0;
+
         while(x < xf){
             if(d <= 0){
-            d += incL; // caminhar para a direita (leste)
-            x++;
+                d += incL; // caminhar para a direita (leste)
+                x++;
             }else{
-            d += incNe; // caminhar em diagonal (Nordeste)
-            x++;
-            y++;
+                d += incNe; // caminhar em diagonal (Nordeste)
+                x++;
+                y++;
             }
-            color_buffer.putPixel(-y, x, color);
+            //interpolação
+            i++;
+            var grad_color = [];
+            grad_color.push(color_0[0] +(color_1[0]- color_0[0])* i/dist);// R
+            grad_color.push(color_0[1] + (color_1[1]- color_0[1])* i/dist);// G
+            grad_color.push(color_0[2] + (color_1[2]- color_0[2])* i/dist);// B
+            grad_color.push(255);// ALPHA
+
+            color_buffer.putPixel(-y, x, grad_color); // desfaz transformação
         }
 
 
     }else if((-1 <= m && m <= 0) && (xi > xf)){// quarto octante
+        // Transformações
         // (-x,y)
         xi = -xi;
         xf = -xf;
@@ -145,25 +173,37 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
         var x = xi;
         var y = yi;
         console.log("Entrei no 4");
-        color_buffer.putPixel(-x, y, color);
+        color_buffer.putPixel(-x, y, color_0); // desfaz transformação
+
+        // é utilizado na hora de interporlar 
+        var dist = xf - x - 1;
+        var i = 0;
 
         while(x < xf){
             if(d <= 0){
-            d += incL; // caminhar para a direita (leste)
-            x++;
+                d += incL; // caminhar para a direita (leste)
+                x++;
             }else{
-            d += incNe; // caminhar em diagonal (Nordeste)
-            x++;
-            y++;
+                d += incNe; // caminhar em diagonal (Nordeste)
+                x++;
+                y++;
             }
-            color_buffer.putPixel(-x, y, color);
+            //interpolação
+            i++;
+            var grad_color = [];
+            grad_color.push(color_0[0] +(color_1[0]- color_0[0])* i/dist);// R
+            grad_color.push(color_0[1] + (color_1[1]- color_0[1])* i/dist);// G
+            grad_color.push(color_0[2] + (color_1[2]- color_0[2])* i/dist);// B
+            grad_color.push(255);// ALPHA
+            color_buffer.putPixel(-x, y, grad_color); // desfaz transformação
         }
     }else if((0 < m && m <= 1) && (xi > xf)){// quinto octante
-
+        // Transformações
         let auxX;
         auxX = xi;
         xi = xf;
         xf = auxX;
+
         let auxY;
         auxY = yi;
         yi = yf;
@@ -181,7 +221,12 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
         var y = yi;
 
         console.log("Entrei no 5");
-        color_buffer.putPixel(x, y, color);
+        //deve-se inverter a ordem das cores
+        color_buffer.putPixel(x, y, color_1); // igual o primeiro  octante
+
+        // é utilizado na hora de interporlar 
+        var dist = xf - x - 1;
+        var i = 0;
 
         while(x < xf){
             if(d <= 0){
@@ -192,10 +237,19 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
                 x++;
                 y++;
             }
-            color_buffer.putPixel(x, y, color);
+            //interpolação
+            i++;
+            var grad_color = [];
+            grad_color.push(color_1[0] +(color_0[0]- color_1[0])* i/dist);// R
+            grad_color.push(color_1[1] + (color_0[1]- color_1[1])* i/dist);// G
+            grad_color.push(color_1[2] + (color_0[2]- color_1[2])* i/dist);// B
+            grad_color.push(255);// ALPHA
+            color_buffer.putPixel(x, y, grad_color); // igual o primeiro  octante
         }
 
-    }else if((m > 1) && (yi > yf) || (-m > 1) && (yi > yf)){ // sexto octante
+    }else if((m > 1) && (yi > yf)){ // sexto octante
+        // Reflete para o segundo e do segundo para o primeiro
+        // Transformações
         // troca o inicio pelo fim e o fim pelo inicio
         let auxX;
         auxX = xi;
@@ -229,7 +283,12 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
         var y = yi;
 
         console.log("Entrei no 6");
-        color_buffer.putPixel(y, x, color);
+        //inverte cores
+        color_buffer.putPixel(y, x, color_1);  // desfaz transformação
+
+        // é utilizado na hora de interporlar 
+        var dist = xf - x - 1;
+        var i = 0;
 
         while(x < xf){
             if(d <= 0){
@@ -240,16 +299,25 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
                 x++;
                 y++;
             }
-            color_buffer.putPixel(y, x, color);
+            //interpolação
+            i++;
+            var grad_color = [];
+            //inverte cores
+            grad_color.push(color_1[0] +(color_0[0]- color_1[0])* i/dist);// R
+            grad_color.push(color_1[1] + (color_0[1]- color_1[1])* i/dist);// G
+            grad_color.push(color_1[2] + (color_0[2]- color_1[2])* i/dist);// B
+            grad_color.push(255);// ALPHA
+            color_buffer.putPixel(y, x, grad_color);  // desfaz transformação
         }
 
 
 
-    }else if((m < -1) && (xi < xf)){ // setimo octante
+    }else if((m < -1) && (yi > yf)){ // setimo octante
+        // Transformações
         //(x,-y)
         yi = -yi;
         yf = -yf;
-
+        
         // troca os valores de xi e yi
         let aux1;
         aux1 = xi;
@@ -272,8 +340,11 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
         var x = xi;
         var y = yi;
         console.log("Entrei no 7");
-        color_buffer.putPixel(y, -x, color);
+        color_buffer.putPixel(y, -x, color_0); //desfaz transformação
 
+        // é utilizado na hora de interporlar 
+        var dist = xf - x - 1;
+        var i = 0;
         while(x < xf){
             if(d <= 0){
                 d += incL; // caminhar para a direita (leste)
@@ -283,12 +354,20 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
                 x++;
                 y++;
             }
-            color_buffer.putPixel(y, -x, color);
+            //interpolação
+            i++;
+            var grad_color = [];
+            grad_color.push(color_0[0] +(color_1[0]- color_0[0])* i/dist);// R
+            grad_color.push(color_0[1] + (color_1[1]- color_0[1])* i/dist);// G
+            grad_color.push(color_0[2] + (color_1[2]- color_0[2])* i/dist);// B
+            grad_color.push(255);// ALPHA
+            color_buffer.putPixel(y, -x, grad_color); //desfaz transformação
         }
 
 
 
     }else if((-1 <= m && m < 0) && xf > xi){ // oitavo octante
+        // Transformações
         //(x,-y)
         yi = -yi;
         yf = -yf;
@@ -303,8 +382,12 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
         var x = xi;
         var y = yi;
         console.log("Entrei no 8");
-        color_buffer.putPixel(x,-y, color);
+        color_buffer.putPixel(x,-y, color_0); // desfaz transformação
         //console.log(x, xf);
+
+        // é utilizado na hora de interporlar 
+        var dist = xf - x - 1;
+        var i = 0;
         while(x < xf){
             //console.log("Entrei")
             if(d <= 0){
@@ -315,7 +398,14 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
                 x++;
                 y++;
             }
-            color_buffer.putPixel(x,-y, color);
+            // interpolação
+            i++;
+            var grad_color = [];
+            grad_color.push(color_0[0] +(color_1[0]- color_0[0])* i/dist);// R
+            grad_color.push(color_0[1] + (color_1[1]- color_0[1])* i/dist);// G
+            grad_color.push(color_0[2] + (color_1[2]- color_0[2])* i/dist);// B
+            grad_color.push(255);// ALPHA
+            color_buffer.putPixel(x,-y, grad_color); // desfaz transformação
         }
     }
     
@@ -324,25 +414,31 @@ function MidPointLineAlgorithm(xi, yi, xf, yf, color, color_0, color_1) {
 
 function DrawTriangle(x0,y0,x1,y1,x2,y2,color_0,color_1,color_2){
    
-    MidPointLineAlgorithm(x0,y0,x1,y1,color_0);
-    MidPointLineAlgorithm(x1,y1,x2,y2,color_0);
-    MidPointLineAlgorithm(x2,y2,x0,y0,color_0);
-
+    MidPointLineAlgorithm(x0,y0,x1,y1,color_0, color_1);
+    MidPointLineAlgorithm(x1,y1,x2,y2,color_1,color_2);
+    MidPointLineAlgorithm(x2,y2,x0,y0,color_2, color_0);
 
 }
 
 
-//DrawTriangle(0,50,-50,0,50,0,[255,255,255,255]);
-//MidPointLineAlgorithm(20,20,10,30,[255,255,255,255]);
+var vermelho = [255,0,0,255];
+var verde = [0,255,0,255]
+var azul = [0,0,255,255];
+var branco = [255,255,255,255];
 
-MidPointLineAlgorithm(0,0,24,24,[255,255,255,255],[255,255,255,255],[255,255,255,255]);
-console.log("Eixos cartesianos e octantes: ");
-//Eixos cartesianos e octantes 
-MidPointLineAlgorithm(0,0,64,0,[255,255,255,255],[255,0,0,255],[0,0,255,255]);// eixo x +
-MidPointLineAlgorithm(0,0,-64,0,[255,255,255,255]);// eixo x -
-MidPointLineAlgorithm(0,0,0,64,[255,255,255,255]);// eixo y +
-MidPointLineAlgorithm(0,0,0,-64,[255,255,255,255]);// eixo y -
-MidPointLineAlgorithm(0,0,64,64,[255,255,255,255]);// reta +(y = x)
-MidPointLineAlgorithm(0,0,-64,-64,[255,255,255,255]);// reta -(y = x)
-MidPointLineAlgorithm(0,0,64,-64,[255,255,255,255]);// reta -(y = x)
-MidPointLineAlgorithm(0,0,-64,64,[255,255,255,255]);// reta -(y = x)
+
+DrawTriangle(30,-50,-25,-15,0,50,vermelho,azul,verde);
+
+// // Desenho: Eixos cartesianos e seus octantes
+// //Eixos cartesianos
+
+// MidPointLineAlgorithm(0,0,64,0,branco,branco);// eixo x +
+// MidPointLineAlgorithm(0,0,0,64,branco,branco);// eixo y +
+// MidPointLineAlgorithm(0,0,-64,0,branco,branco);// eixo x -
+// MidPointLineAlgorithm(0,0,0,-64,branco,branco);// eixo y -
+// //Octantes
+
+// MidPointLineAlgorithm(0,0,64,64,branco,branco);// reta +(y = x)
+// MidPointLineAlgorithm(0,0,-64,-64,branco,branco);// reta -(y = x)
+// MidPointLineAlgorithm(0,0,64,-64,branco,branco);// reta -(y = x)
+// MidPointLineAlgorithm(0,0,-64,64,branco,branco);// reta -(y = x)
