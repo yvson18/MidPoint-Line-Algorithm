@@ -420,25 +420,59 @@ function DrawTriangle(x0,y0,x1,y1,x2,y2,color_0,color_1,color_2){
 
 }
 
+function DrawCricle(xc, yc, r, color_0, color_1){
+    var d = 1-r;                                                        //variável de decisão
+    var y = r;
+    var x = 0;
+    
+    color_buffer.putPixel(xc + x, yc + y, color_0);                 //imprime os pontos sobre as retas x e y
+    color_buffer.putPixel(xc + y, yc + x, color_0);                 //imprime os pontos sobre as retas x e y
+    color_buffer.putPixel(xc - y, yc - x, color_0);                 //imprime os pontos sobre as retas x e y
+    color_buffer.putPixel(xc - x, yc - y, color_0);                 //imprime os pontos sobre as retas x e y
+
+    while(x <= y){
+
+        if(d <= 0){                                                 //anda para o lado
+            x++;
+            d += (2 * x + 1);
+        }else{                                                      //anda pra baixo
+            y--;
+            x++;
+            d += (2* (x - y) + 1);
+        }
+
+        color_buffer.putPixel(xc + x, yc + y, color_0);             //daqui pra baixo imprime os pontos em todos
+        color_buffer.putPixel(xc - x, yc + y, color_0);             //os octantes
+        color_buffer.putPixel(xc + x, yc - y, color_0);
+        color_buffer.putPixel(xc - x, yc - y, color_0);
+        color_buffer.putPixel(xc + y, yc + x, color_0);
+        color_buffer.putPixel(xc - y, yc + x, color_0);
+        color_buffer.putPixel(xc + y, yc - x, color_0);
+        color_buffer.putPixel(xc - y, yc - x, color_0);
+    }
+
+}
+
 
 var vermelho = [255,0,0,255];
 var verde = [0,255,0,255]
 var azul = [0,0,255,255];
 var branco = [255,255,255,255];
 
+DrawCricle(64, 64, 40, [255, 255, 0, 255])
 
 DrawTriangle(30,-50,-25,-15,0,50,vermelho,azul,verde);
 
 // // Desenho: Eixos cartesianos e seus octantes
 // //Eixos cartesianos
 
-// MidPointLineAlgorithm(0,0,64,0,branco,branco);// eixo x +
-// MidPointLineAlgorithm(0,0,0,64,branco,branco);// eixo y +
-// MidPointLineAlgorithm(0,0,-64,0,branco,branco);// eixo x -
-// MidPointLineAlgorithm(0,0,0,-64,branco,branco);// eixo y -
-// //Octantes
+MidPointLineAlgorithm(0,0,64,0,branco,branco);// eixo x +
+MidPointLineAlgorithm(0,0,0,64,branco,branco);// eixo y +
+MidPointLineAlgorithm(0,0,-64,0,branco,branco);// eixo x -
+MidPointLineAlgorithm(0,0,0,-64,branco,branco);// eixo y -
+//Octantes
 
-// MidPointLineAlgorithm(0,0,64,64,branco,branco);// reta +(y = x)
-// MidPointLineAlgorithm(0,0,-64,-64,branco,branco);// reta -(y = x)
-// MidPointLineAlgorithm(0,0,64,-64,branco,branco);// reta -(y = x)
-// MidPointLineAlgorithm(0,0,-64,64,branco,branco);// reta -(y = x)
+MidPointLineAlgorithm(0,0,64,64,branco,branco);// reta +(y = x)
+MidPointLineAlgorithm(0,0,-64,-64,branco,branco);// reta -(y = x)
+MidPointLineAlgorithm(0,0,64,-64,branco,branco);// reta -(y = x)
+MidPointLineAlgorithm(0,0,-64,64,branco,branco);// reta -(y = x)
