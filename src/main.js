@@ -427,10 +427,18 @@ var azul = [0,0,255,255];
 var branco = [255,255,255,255];
 
 
-DrawTriangle(30,-50,-25,-15,0,50,vermelho,azul,verde);
+DrawTriangle(0,40,35,-30,-35,-30,vermelho,azul,verde);
 
-// // Desenho: Eixos cartesianos e seus octantes
-// //Eixos cartesianos
+
+MidPointLineAlgorithm(45,40,0,-65,vermelho,verde);// eixo x +
+MidPointLineAlgorithm(-45,40,0,-65,azul,vermelho);// eixo x +
+MidPointLineAlgorithm(-45,40,-45,-45,azul,verde);// eixo x +
+MidPointLineAlgorithm(-45,-45,-35,-30,vermelho,verde);// eixo x +
+MidPointLineAlgorithm(45,-45,35,-30,azul,vermelho);// eixo x +
+MidPointLineAlgorithm(45,40,45,-45,azul,vermelho);// eixo x +
+
+// Desenho: Eixos cartesianos e seus octantes
+//Eixos cartesianos
 
 // MidPointLineAlgorithm(0,0,64,0,branco,branco);// eixo x +
 // MidPointLineAlgorithm(0,0,0,64,branco,branco);// eixo y +
