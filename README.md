@@ -59,6 +59,7 @@ Por fim, o código fonte poderia ser otimizado para ficar mais enxuto.
 
 Por fim,  extendemos ainda  o algoritmo do ponto médio para desenhar círculos dado um ponto central e um raio.
 
+A lógica é muito parecida com a da reta, mas os incrementos são feitos em relação a equação do círculo e a pintura dos pixels acontece nos 8 octantes ao mesmo tempo. O código se torna mais custoso computacionalmente, pois à cada iteração é necessário reclacular o incremento.
 
 <br>
 <p align = "center">
@@ -76,3 +77,5 @@ Por fim,  extendemos ainda  o algoritmo do ponto médio para desenhar círculos 
 https://michael-m.medium.com/true-color-interpolation-a1a17352ebf0 (**Interpolação**)
 
 https://en.wikipedia.org/wiki/HCL_color_space (**Color space**)
+
+http://sheilacaceres.com/courses/cg/CG4-Curvas.pdf (**Curvas**)
