@@ -27,8 +27,7 @@ A figura seguir ilustra a utilização das funções **MidPointLineAlgorithm()**
 
 <br>
 <p align = "center">
-<img  style = "justify-content: center" src= "watch_inc.png
-" alt =   "drawing" width = "306" height = "298">
+<img  style = "justify-content: center" src= "watch_inc.png" alt =   "drawing" width = "306" height = "298">
 </p>
 
 <p align = "center">
@@ -43,8 +42,7 @@ A utilização do sistema Rgb junto com a interpolação pode causar problemas q
 
 <br>
 <p align = "center">
-<img  style = "justify-content: center" src= "gradiente.png
-" alt =   "drawing" width = "450" height = "200">
+<img  style = "justify-content: center" src= "gradiente.png" alt =   "drawing" width = "450" height = "200">
 </p>
 
 <p align = "center">
@@ -64,8 +62,7 @@ Por fim,  extendemos ainda  o algoritmo do ponto médio para desenhar círculos 
 
 <br>
 <p align = "center">
-<img  style = "justify-content: center" src= "watch_dogs.png
-" alt =   "drawing" width = "306" height = "298">
+<img  style = "justify-content: center" src= "watch_dogs.png" alt =   "drawing" width = "306" height = "298">
 </p>
 
 <p align = "center">
