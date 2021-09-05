@@ -24,7 +24,7 @@ Assim,  a generalização se deu refletindo todas as linhas contidas no dóminio
 No tocante ao preenchimento das cores da linha, foi utilizado a técinca de interpolação linear. A implementação utilizou do fato de que uma cor é representada como um vetor no espaço Rgb e dessa forma foi aplicado um cálcuo a cada iteração de modo que a cada vez que a linha crescia ocorria a transição de uma cor para outra. Assim, no fim, obtêm-se um gradiente de cores.
 
 
-A figura seguir ilustra a utilização das funções **MidPointLineAlgorithm()** e **DrawTriangle()** . É válido ressaltar que o triândulo central foi desenhado com a função especializada.
+A figura seguir ilustra a utilização das funções **MidPointLineAlgorithm()** e **DrawTriangle()** . É válido ressaltar que o triângulo central foi desenhado com a função especializada.
 
 <br>
 <p align = "center">
