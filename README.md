@@ -1,6 +1,7 @@
-# Atividade Prática 1 - Rasterização de Linhas
+<h1 align = "center"> Atividade Prática 1 - Rasterização de Linhas </h1>
 
-**Alunos:** João Victor Rodrigues Galvão (**matrícula:** 20190172620) e Yvson Nunes Figueiredo (**matrícula:** 20190019716) 
+<h3 align="center"> João Victor Rodrigues Galvão - 20190172620</h3>
+<h3 align="center"> Yvson Nunes Figueiredo - 20190019716</h3>
 
 A atividade desenvolvida teve como pretensão implementar o algoritmo de Bresenham (ou Algoritmo do ponto médio). Para tal, foram utilizadas a linguagem de programação JavaScript, bem como, uma biblioteca de autoria do professor Christian Azambuja Pagot para colorir pixels.   
 Ademais, com o fito de comprovar o funcionamento do algoritmo, foram implementadas as funções  **MidPointLineAlgorithm()** (a qual rasteriza para todos os octantes uma linha dado o ponto inicial e  final e cor inicial e final)  e **DrawTriangle()** (que reaproveita a função anterior tendo como argumentos três pontos e três cores).
